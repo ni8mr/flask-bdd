@@ -25,7 +25,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in')
-            return redirect(url_for('index'))
+            return redirect(url_for('show_entries'))
     return render_template('login.html', error=error)
 
 
@@ -34,19 +34,19 @@ def logout():
     """User logout/authentication/session management."""
     session.pop('logged_in', None)
     flash('You were logged out')
-    return redirect(url_for('index'))
+    return redirect(url_for('show_entries'))
 
 
 @app.route('/add', methods=['POST'])
 def add_entry():
     if not session.get('logged_in'):
-        abort(405)
+        abort(401)
     db = get_db()
-    db.execute('insert into entries (title, text) values (?, ?)',
+    g.db.execute('insert into entries (title, text) values (?, ?)',
                [request.form['title'], request.form['text']])
-    db.commit()
+    g.db.commit()
     flash('New entry was successfully posted')
-    return redirect(url_for('index'))
+    return redirect(url_for('show_entries'))
 
 
 # connect to database
@@ -85,7 +85,7 @@ def index():
     db = get_db()
     cur = db.execute('select title, text from entries order by id desc')
     entries = cur.fetchall()
-    return render_template('index.html', entries=entries)
+    return render_template('show_entries.html', entries=entries)
 
 
 if __name__ == '__main__':
