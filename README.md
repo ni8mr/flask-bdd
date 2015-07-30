@@ -1,1 +1,1 @@
-Practising Behavior Driven Development (BDD) with a basic hello world application
+Practising Behavior Driven Development (BDD) with behave by developing Flaskr (Official tutorial provided for getting started on Flask)
