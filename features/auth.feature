@@ -1,36 +1,35 @@
-Feature: flaskr is secure in that users must log in and log out to
-access certain features
+Feature: flaskr is secure in that users must login and logout to access certain features
 
   Scenario: successful login
-    Given flaskr is set up
-    When we log in with "admin" and "admin"
-    Then we should see the alert "You are logged in"
+    Given flaskr is setup
+      When we login with "admin" and "admin"
+      Then we should see the alert "You were logged in"
 
   Scenario: incorrect username
-    Given flaskr is set up
-    When we log in with "notright" and "admin"
-    Then we should see the alert "Invalid username"
+    Given flaskr is setup
+      When we login with "notright" and "admin"
+      Then we should see the alert "Invalid username"
 
   Scenario: incorrect password
-    Given flaskr is set up
-    When we log in with "admin" and "notright"
-    Then we should see the alert "Invalid password"
+    Given flaskr is setup
+      When we login with "admin" and "notright"
+      Then we should see the alert "Invalid password"
 
   Scenario: successful logout
-    Given flaskr is set up
-    and we log in with "admin" and "admin"
-    When we logout
-    Then we should see the alert "You are logged out"
+    Given flaskr is setup
+    and we login with "admin" and "admin"
+      When we logout
+      Then we should see the alert "You were logged out"
 
   Scenario: successful post
     Given flaskr is setup
-    and we log in with "admin" and "admin"
+    and we login with "admin" and "admin"
       When we add a new entry with "test" and "test" as the title and text
-      Then we should see the alert "New entry is successfully posted"
+      Then we should see the alert "New entry was successfully posted"
       Then we should see the post with "test" and "test" as the title and text
 
   Scenario: unsuccessful post
     Given flaskr is setup
-    and we are not logged in
+    Given we are not logged in
       When we add a new entry with "test" and "test" as the title and text
-      Then we should see a "401" status code
+      Then we should see the alert "Unauthorized"

@@ -21,16 +21,18 @@
         <dt>Text:
         <dd><textarea name="text" rows="5" cols="40"></textarea>
         <br>
+        <br>
         <dd><input type="submit" class="btn btn-default" value="Share">
       </dl>
+    </form>
   {% endif %}
   <ul>
-    {% for entry in entries %}
-      <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
-    {% else %}
-      <li><em>No entries yet. Add some!</em>
-    {% endfor %}
+  {% for entry in entries %}
+    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+  {% else %}
+    <li><em>No entries yet. Add some!</em>
+  {% endfor %}
   </ul>
 </div>
-
+  
 {% endblock %}
