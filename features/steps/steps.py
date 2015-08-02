@@ -2,7 +2,7 @@ from behave import *
 
 @given(u'flaskr is set up')
 def flask_is_setup(context):
-	assert context.client
+	assert context.client and context.db
 
 
 @given(u'we log in with "{username}" and "{password}"')
@@ -33,3 +33,7 @@ def add(context, title, text):
 		follow_redirects=True
 		)
 	assert context.page
+
+@then(u'we should see the post with "{title}" and "{text}" as the title and text')
+def entry(context, title, text):
+	assert title and text in context.page.data
